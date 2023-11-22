@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 #region FitnessDatabase
 namespace HealthAndFitnessTracker.Classes
