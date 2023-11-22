@@ -2,7 +2,7 @@
 
 
 #region FoodLogClass
-namespace HealthAndFitnessTracker
+namespace HealthAndFitnessTracker.Classes
 {
     public class FoodLog
     {
@@ -21,10 +21,10 @@ namespace HealthAndFitnessTracker
         public FoodLog(DateTime foodlogDate, string mealType, string foodItem, double foodCalories, int PersonId)
         {
 
-            this.FoodlogDate = foodlogDate;
-            this.MealType = mealType;
-            this.FoodItem = foodItem;
-            this.FoodCalories = foodCalories;
+            FoodlogDate = foodlogDate;
+            MealType = mealType;
+            FoodItem = foodItem;
+            FoodCalories = foodCalories;
             this.PersonId = PersonId;
         }
         #endregion

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HealthAndFitnessTracker
+namespace HealthAndFitnessTracker.Classes
 {
     internal class MainClass
     {
         static void Main()
         {
-            
+
             #region DatabaseTablesandDataInsertionCommands
             FitnessDbContext db = new();
 

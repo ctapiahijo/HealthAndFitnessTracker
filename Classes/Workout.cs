@@ -1,6 +1,7 @@
 ﻿#region WorkoutClass
 
-namespace HealthAndFitnessTracker
+
+namespace HealthAndFitnessTracker.Classes
 {
 
     public class Workout
@@ -30,10 +31,10 @@ namespace HealthAndFitnessTracker
 
             (WorkoutStart, WorkoutFinished) = (WorkoutFinished, WorkoutStart);
 
-            this.WorkoutDate = workoutDate;
-            this.WorkoutType = workoutType;
-            this.Duration = WorkoutStart - WorkoutFinished;
-            this.CaloriesBurned = caloriesBurned;
+            WorkoutDate = workoutDate;
+            WorkoutType = workoutType;
+            Duration = WorkoutStart - WorkoutFinished;
+            CaloriesBurned = caloriesBurned;
             this.PersonId = PersonId;
         }
         #endregion

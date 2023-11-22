@@ -1,4 +1,6 @@
-﻿namespace HealthAndFitnessTracker
+﻿using HealthAndFitnessTracker.Interfaces;
+
+namespace HealthAndFitnessTracker.Classes
 {
     public class HealthTracker : IHealthTracker
     {

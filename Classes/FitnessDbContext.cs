@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 
 #region FitnessDatabase
-namespace HealthAndFitnessTracker
+namespace HealthAndFitnessTracker.Classes
 {
     public class FitnessDbContext : DbContext
     {

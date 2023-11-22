@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 #region BodyMeasurementsClass
-namespace HealthAndFitnessTracker
+namespace HealthAndFitnessTracker.Classes
 {
     public class BodyMeasurements
     {
@@ -20,10 +20,10 @@ namespace HealthAndFitnessTracker
         public BodyMeasurements(DateTime bodymeasurementDate, double weight, double height, double bodyfatPercentage, int PersonId)
         {
 
-            this.BodymeasurementDate = bodymeasurementDate;
-            this.Weight = weight;
-            this.Height = height;
-            this.BodyfatPercentage = bodyfatPercentage;
+            BodymeasurementDate = bodymeasurementDate;
+            Weight = weight;
+            Height = height;
+            BodyfatPercentage = bodyfatPercentage;
             this.PersonId = PersonId;
         }
         #endregion

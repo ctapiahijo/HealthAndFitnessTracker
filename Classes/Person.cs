@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 #region PersonClass
-namespace HealthAndFitnessTracker
+namespace HealthAndFitnessTracker.Classes
 {
     public class Person
     {
@@ -39,10 +39,10 @@ namespace HealthAndFitnessTracker
         }
         public Person(string name, int age, string username, string password)
         {
-            this.PersonName = name;
-            this.PersonAge = age;
-            this.Username = username;
-            this.Password = password;
+            PersonName = name;
+            PersonAge = age;
+            Username = username;
+            Password = password;
             BodyMeasurements = new List<BodyMeasurements>();
             FoodLogs = new List<FoodLog>();
             Workouts = new List<Workout>();
@@ -51,10 +51,10 @@ namespace HealthAndFitnessTracker
         public Person(string name, int age, string username, string password, BodyMeasurements bodyMeasurement, FoodLog foodLog, Workout workout)
         {
 
-            this.PersonName = name;
-            this.PersonAge = age;
-            this.Username = username;
-            this.Password = password;
+            PersonName = name;
+            PersonAge = age;
+            Username = username;
+            Password = password;
 
             BodyMeasurements = new List<BodyMeasurements> { bodyMeasurement };
             FoodLogs = new List<FoodLog> { foodLog };
@@ -63,10 +63,6 @@ namespace HealthAndFitnessTracker
         }
         #endregion
         #region Functions
-
-
-        #endregion
-
         /// <summary>
         /// Calculates the total calories burned from all workouts.
         /// </summary>
@@ -74,7 +70,7 @@ namespace HealthAndFitnessTracker
         public double TotalCaloriesBurned()
         {
             double total = 0;
-            foreach (var item in this.Workouts)
+            foreach (var item in Workouts)
             {
                 total += item.CaloriesBurned;
             }
@@ -93,7 +89,7 @@ namespace HealthAndFitnessTracker
         public TimeSpan AveWorkoutTime()
         {
             TimeSpan duration = new(0, 0, 0);
-            foreach (var item in this.Workouts)
+            foreach (var item in Workouts)
             {
                 duration += item.Duration;
 
@@ -280,11 +276,11 @@ namespace HealthAndFitnessTracker
         /// <param name="db">The FitnessDbContext instance.</param>
         public void AddAnEntry(FitnessDbContext db)
         {
-            var workout = this.AddWorkoutEntry();
+            var workout = AddWorkoutEntry();
             db.Workouts.Add(workout);
-            var foodlog = this.AddFoodLog();
+            var foodlog = AddFoodLog();
             db.FoodLogs.Add(foodlog);
-            var bodymeasurements = this.AddBodyMeasurement();
+            var bodymeasurements = AddBodyMeasurement();
             db.BodyMeasurements.Add(bodymeasurements);
 
             db.SaveChanges();
@@ -328,7 +324,7 @@ namespace HealthAndFitnessTracker
                 Console.WriteLine("Please enter a valid number for calories burned:");
             }
 
-            return new Workout(workoutdate, workoutType, workoutstart, workoutfinished, caloriesBurned, this.PersonId);
+            return new Workout(workoutdate, workoutType, workoutstart, workoutfinished, caloriesBurned, PersonId);
         }
 
 
@@ -365,7 +361,7 @@ namespace HealthAndFitnessTracker
                 Console.WriteLine("Please enter a valid number for food calories:");
             }
 
-            return new FoodLog(foodlogDate, P_mealType, P_foodItem, P_foodCalories, this.PersonId);
+            return new FoodLog(foodlogDate, P_mealType, P_foodItem, P_foodCalories, PersonId);
         }
 
 
@@ -411,7 +407,7 @@ namespace HealthAndFitnessTracker
                 Console.WriteLine("Please enter a valid number for body fat percentage:");
             }
 
-            return new BodyMeasurements(bodymeasurementDate, weight, height, bodyfatPercentage, this.PersonId);
+            return new BodyMeasurements(bodymeasurementDate, weight, height, bodyfatPercentage, PersonId);
         }
 
 
@@ -902,13 +898,13 @@ namespace HealthAndFitnessTracker
                 switch (viewEntriesChoice)
                 {
                     case "1":
-                        this.DisplayWorkouts();
+                        DisplayWorkouts();
                         break;
                     case "2":
-                        this.DisplayFoodLogs();
+                        DisplayFoodLogs();
                         break;
                     case "3":
-                        this.DisplayBodyMeasurements();
+                        DisplayBodyMeasurements();
                         break;
                     case "4":
                         return;
@@ -947,7 +943,7 @@ namespace HealthAndFitnessTracker
         public void Logout()
         {
             Console.WriteLine("Logging out...");
-            this.Username = null;
+            Username = null;
             HealthTracker.ReturnToLogin = true;
         }
 
@@ -990,6 +986,10 @@ namespace HealthAndFitnessTracker
             }
 
         }
+
+        #endregion
+
+
     }
 }
 #endregion
