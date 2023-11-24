@@ -5,7 +5,7 @@ namespace HealthAndFitnessTracker.Classes
 {
     public static class Logger
     {
-        private static readonly string LogFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "error_log.txt");
+        private static readonly string LogFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "log.txt");
 
         public static void LogError(string message)
         {
@@ -40,6 +40,12 @@ namespace HealthAndFitnessTracker.Classes
             }
         }
 
+        public static void LogWarning(string warningMessage)
+        {
+            Log($"[Warning] {DateTime.Now}: {warningMessage}");
+        }
+
+        
     }
 }
 #endregion

@@ -296,6 +296,9 @@ namespace HealthAndFitnessTracker.Classes
             Console.WriteLine("\n--------Workout details----------");
             DateTime workoutdate;
 
+
+            Console.WriteLine("Please enter a date for the workout (yyyy-mm-dd): ");
+
             try
             {
                 while (!DateTime.TryParse(Console.ReadLine(), out workoutdate))
@@ -303,7 +306,6 @@ namespace HealthAndFitnessTracker.Classes
                     Console.WriteLine("Please enter a valid date for the workout (yyyy-mm-dd): ");
                 }
 
-                // Gather other parameters from the user
                 Console.Write("Please enter the workout type (ex. Running, Weightlifting or Powerlifting) : ");
                 string workoutType = Console.ReadLine() ?? "";
 
@@ -472,6 +474,7 @@ namespace HealthAndFitnessTracker.Classes
             if (Workouts.Count == 0)
             {
                 Console.WriteLine("No workout entries to delete.");
+                Logger.LogInfo("No workout entries to delete.");
                 return;
             }
 
@@ -493,12 +496,15 @@ namespace HealthAndFitnessTracker.Classes
                 db.SaveChanges();
 
                 Console.WriteLine("Workout entry deleted successfully.");
+                Logger.LogInfo("Workout entry deleted successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid selection. No workout entry deleted.");
+                Logger.LogError("Invalid selection. No workout entry deleted.");
             }
         }
+
 
 
 
@@ -515,6 +521,7 @@ namespace HealthAndFitnessTracker.Classes
             if (FoodLogs.Count == 0)
             {
                 Console.WriteLine("No food log entries to delete.");
+                Logger.LogInfo("No food log entries to delete.");
                 return;
             }
 
@@ -536,12 +543,15 @@ namespace HealthAndFitnessTracker.Classes
                 db.SaveChanges();
 
                 Console.WriteLine("Food log entry deleted successfully.");
+                Logger.LogInfo("Food log entry deleted successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid selection. No food log entry deleted.");
+                Logger.LogError("Invalid selection. No food log entry deleted.");
             }
         }
+
 
 
 
@@ -559,6 +569,7 @@ namespace HealthAndFitnessTracker.Classes
             if (BodyMeasurements.Count == 0)
             {
                 Console.WriteLine("No body measurement entries to delete.");
+                Logger.LogInfo("No body measurement entries to delete.");
                 return;
             }
 
@@ -580,12 +591,15 @@ namespace HealthAndFitnessTracker.Classes
                 db.SaveChanges();
 
                 Console.WriteLine("Body measurement entry deleted successfully.");
+                Logger.LogInfo("Body measurement entry deleted successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid selection. No body measurement entry deleted.");
+                Logger.LogError("Invalid selection. No body measurement entry deleted.");
             }
         }
+
 
 
 
@@ -603,6 +617,7 @@ namespace HealthAndFitnessTracker.Classes
             if (Workouts.Count == 0)
             {
                 Console.WriteLine("No workout entries to update.");
+                Logger.LogInfo("No workout entries to update.");
                 return;
             }
 
@@ -632,6 +647,7 @@ namespace HealthAndFitnessTracker.Classes
                 if (string.IsNullOrEmpty(updateOption))
                 {
                     Console.WriteLine("Invalid choice. No updates made.");
+                    Logger.LogWarning("Invalid choice. No updates made.");
                     return;
                 }
 
@@ -650,6 +666,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid date format. No updates made.");
+                            Logger.LogError("Invalid date format. No updates made.");
                         }
                         break;
                     case "3":
@@ -661,6 +678,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid time format. No updates made.");
+                            Logger.LogError("Invalid time format. No updates made.");
                         }
                         break;
                     case "4":
@@ -672,6 +690,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid time format. No updates made.");
+                            Logger.LogError("Invalid time format. No updates made.");
                         }
                         break;
                     case "5":
@@ -683,22 +702,27 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid calories format. No updates made.");
+                            Logger.LogError("Invalid calories format. No updates made.");
                         }
                         break;
                     default:
                         Console.WriteLine("Invalid choice. No updates made.");
+                        Logger.LogWarning("Invalid choice. No updates made.");
                         break;
                 }
 
                 db.SaveChanges();
 
                 Console.WriteLine("Workout entry updated successfully.");
+                Logger.LogInfo("Workout entry updated successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid selection. No workout entry updated.");
+                Logger.LogWarning("Invalid selection. No workout entry updated.");
             }
         }
+
 
 
 
@@ -714,7 +738,6 @@ namespace HealthAndFitnessTracker.Classes
         {
             Console.WriteLine("\nUpdate Food Log Entry");
             Console.WriteLine("----------------------");
-
 
             DisplayFoodLogs();
 
@@ -736,6 +759,7 @@ namespace HealthAndFitnessTracker.Classes
                 if (string.IsNullOrEmpty(updateOption))
                 {
                     Console.WriteLine("Invalid choice. No updates made.");
+                    Logger.LogWarning("Invalid choice. No updates made for food log entry.");
                     return;
                 }
 
@@ -758,6 +782,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid calories format. No updates made.");
+                            Logger.LogWarning("Invalid calories format. No updates made for food log entry.");
                         }
                         break;
                     case "4":
@@ -769,22 +794,27 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid date format. No updates made.");
+                            Logger.LogWarning("Invalid date format. No updates made for food log entry.");
                         }
                         break;
                     default:
                         Console.WriteLine("Invalid choice. No updates made.");
+                        Logger.LogWarning($"Invalid choice '{updateOption}'. No updates made for food log entry.");
                         break;
                 }
 
                 db.SaveChanges();
 
                 Console.WriteLine("Food log entry updated successfully!");
+                Logger.LogInfo("Food log entry updated successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid entry number. No updates made.");
+                Logger.LogWarning("Invalid entry number. No updates made for food log entry.");
             }
         }
+
 
 
 
@@ -833,6 +863,7 @@ namespace HealthAndFitnessTracker.Classes
                 if (string.IsNullOrEmpty(updateOption))
                 {
                     Console.WriteLine("Invalid choice. No updates made.");
+                    Logger.LogWarning("Invalid choice. No updates made for body measurement entry.");
                     return;
                 }
 
@@ -847,6 +878,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid weight format. No updates made.");
+                            Logger.LogWarning("Invalid weight format. No updates made for body measurement entry.");
                         }
                         break;
                     case "2":
@@ -858,6 +890,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid height format. No updates made.");
+                            Logger.LogWarning("Invalid height format. No updates made for body measurement entry.");
                         }
                         break;
                     case "3":
@@ -869,6 +902,7 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid body fat percentage format. No updates made.");
+                            Logger.LogWarning("Invalid body fat percentage format. No updates made for body measurement entry.");
                         }
                         break;
                     case "4":
@@ -880,22 +914,27 @@ namespace HealthAndFitnessTracker.Classes
                         else
                         {
                             Console.WriteLine("Invalid date format. No updates made.");
+                            Logger.LogWarning("Invalid date format. No updates made for body measurement entry.");
                         }
                         break;
                     default:
                         Console.WriteLine("Invalid choice. No updates made.");
+                        Logger.LogWarning($"Invalid choice '{updateOption}'. No updates made for body measurement entry.");
                         break;
                 }
 
                 db.SaveChanges();
 
                 Console.WriteLine("Body measurement entry updated successfully!");
+                Logger.LogInfo("Body measurement entry updated successfully.");
             }
             else
             {
                 Console.WriteLine("Invalid entry number. No updates made.");
+                Logger.LogWarning("Invalid entry number. No updates made for body measurement entry.");
             }
         }
+
 
 
 
@@ -990,10 +1029,19 @@ namespace HealthAndFitnessTracker.Classes
         /// </summary>
         public void Logout()
         {
-            Console.WriteLine("Logging out...");
-            Username = null;
-            HealthTracker.ReturnToLogin = true;
+            try
+            {
+                Console.WriteLine("Logging out...");
+                Logger.LogInfo($"User {Username} logged out.");
+                Username = null;
+                HealthTracker.ReturnToLogin = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Error during logout: {ex.Message}");
+            }
         }
+
 
 
 

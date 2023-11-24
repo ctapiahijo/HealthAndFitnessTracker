@@ -257,15 +257,32 @@ namespace HealthAndFitnessTracker.Classes
         /// </returns>
         private static Person? Login(FitnessDbContext dbContext)
         {
-            Console.Write("Enter your username: ");
-            string? username = Console.ReadLine();
+            try
+            {
+                Console.Write("Enter your username: ");
+                string? username = Console.ReadLine();
 
-            Console.Write("Enter your password: ");
-            string? password = Console.ReadLine();
+                Console.Write("Enter your password: ");
+                string? password = Console.ReadLine();
 
-            Person? user = dbContext.Persons.FirstOrDefault(u => u.Username == username && u.Password == password);
+                Person? user = dbContext.Persons.FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            return user;
+                if (user != null)
+                {
+                    Logger.LogInfo($"User {username} logged in.");
+                }
+                else
+                {
+                    Logger.LogWarning($"Login attempt failed for user {username}.");
+                }
+
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Error during login: {ex.Message}");
+                return null;
+            }
         }
 
 
@@ -284,30 +301,40 @@ namespace HealthAndFitnessTracker.Classes
         /// </returns>
         private static Person? Register(FitnessDbContext dbContext)
         {
-            Console.Write("Enter your name: ");
-            string name = Console.ReadLine() ?? "";
-
-            Console.Write("Enter your age: ");
-            if (int.TryParse(Console.ReadLine(), out int age) && age >= 0)
+            try
             {
-                Console.Write("Enter your new username: ");
-                string newUsername = Console.ReadLine() ?? "";
+                Console.Write("Enter your name: ");
+                string name = Console.ReadLine() ?? "";
 
-                Console.Write("Enter your password: ");
-                string newPassword = Console.ReadLine() ?? "";
+                Console.Write("Enter your age: ");
+                if (int.TryParse(Console.ReadLine(), out int age) && age >= 0)
+                {
+                    Console.Write("Enter your new username: ");
+                    string newUsername = Console.ReadLine() ?? "";
 
-                Person newUser = CreateUser(name, age, newUsername, newPassword);
-                dbContext.Persons.Add(newUser);
-                dbContext.SaveChanges();
+                    Console.Write("Enter your password: ");
+                    string newPassword = Console.ReadLine() ?? "";
 
-                return newUser;
+                    Person newUser = CreateUser(name, age, newUsername, newPassword);
+                    dbContext.Persons.Add(newUser);
+                    dbContext.SaveChanges();
+
+                    Logger.LogInfo($"User {newUsername} registered successfully.");
+                    return newUser;
+                }
+                else
+                {
+                    Logger.LogWarning("Invalid age. Registration failed.");
+                    return null;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Invalid age. Registration failed.");
+                Logger.LogError($"Error during registration: {ex.Message}");
                 return null;
             }
         }
+
 
 
         #endregion
