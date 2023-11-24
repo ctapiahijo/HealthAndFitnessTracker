@@ -22,7 +22,7 @@ namespace HealthAndFitnessTracker.Classes
             #endregion
 
 
-            var healthTracker = new HealthTracker(db);
+            var healthTracker = new HealthTracker();
             healthTracker.Start(db);
 
 

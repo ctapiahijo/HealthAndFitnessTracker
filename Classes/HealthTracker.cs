@@ -1,14 +1,15 @@
 ﻿using HealthAndFitnessTracker.Interfaces;
 
+#region HealthAndFitnessTracker
 namespace HealthAndFitnessTracker.Classes
 {
-    public class HealthTracker : IHealthTracker
+    public class HealthTracker
     {
-        private readonly FitnessDbContext db;
+        private readonly FitnessDbContext db = new();
         public static bool ReturnToLogin { get; set; } = false;
-        public HealthTracker(FitnessDbContext dbContext)
+        public HealthTracker()
         {
-            db = dbContext;
+            
         }
 
 
@@ -127,87 +128,194 @@ namespace HealthAndFitnessTracker.Classes
         }
 
         #region UserFunctions_Validations
+
+
+
+
+
+
+        // Single Responsibility Principle (SRP) Comment:
+        // The LoginOrRegister method is responsible for handling user login or registration,
+        // adhering to SRP by focusing on user authentication and registration tasks.
+
+        // Dependency Inversion Principle (DIP) Comment:
+        // The FitnessDbContext dependency is injected into the LoginOrRegister method,
+        // following DIP by allowing the method to work with any context that adheres to the
+        // FitnessDbContext abstraction, enhancing flexibility in database operations.
+
+        /// <summary>
+        /// Allows the user to either log in or register, based on user input.
+        /// </summary>
+        /// <param name="dbContext">The FitnessDbContext used for database operations.</param>
+        /// <returns>
+        /// A Person object representing the logged-in or registered user if successful; otherwise, returns null.
+        /// </returns>
         private static Person? LoginOrRegister(FitnessDbContext dbContext)
         {
-            Console.WriteLine("1. Login");
-            Console.WriteLine("2. Register");
-            Console.WriteLine("3. Exit");
-            Console.Write("Enter your choice: ");
-            string? loginOrRegisterChoice = Console.ReadLine();
-
-            if (loginOrRegisterChoice == "1")
+            while (true)
             {
-                Console.Write("Enter your username: ");
-                string? username = Console.ReadLine();
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Register");
+                Console.WriteLine("3. Exit");
+                Console.Write("Enter your choice: ");
+                string? loginOrRegisterChoice = Console.ReadLine();
 
-                Console.Write("Enter your password: ");
-                string? password = Console.ReadLine();
-
-                Person? user = dbContext.Persons.FirstOrDefault(u => u.Username == username);
-
-                if (user != null && ValidateUser(user, user.Password))
+                switch (loginOrRegisterChoice)
                 {
-                    Console.WriteLine("Login successful!");
-                    return user;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid username or password. Exiting the application.");
-                    return null;
-                }
-            }
-            else if (loginOrRegisterChoice == "2")
-            {
-                Console.Write("Enter your name: ");
-                string name = Console.ReadLine() ?? "";
+                    case "1":
+                        Person? loggedInUser = Login(dbContext);
+                        if (loggedInUser != null)
+                        {
+                            Console.WriteLine("Login successful!");
+                            return loggedInUser;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid username or password. Please try again.");
+                            break;
+                        }
 
-                Console.Write("Enter your age: ");
-                if (int.TryParse(Console.ReadLine(), out int age) && age >= 0)
-                {
-                    Console.Write("Enter your new username: ");
-                    string newUsername = Console.ReadLine() ?? "";
+                    case "2":
+                        Person? newUser = Register(dbContext);
+                        if (newUser != null)
+                        {
+                            Console.WriteLine("Registration successful! You are now the current user.");
+                            return newUser;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Registration failed. Please try again.");
+                            break;
+                        }
 
-                    Console.Write("Enter your password: ");
-                    string newPassword = Console.ReadLine() ?? "";
+                    case "3":
+                        Console.WriteLine("Exiting the application.");
+                        return null;
 
-                    Person newUser = CreateUser(name, age, newUsername, newPassword);
-                    dbContext.Persons.Add(newUser);
-                    dbContext.SaveChanges();
-
-                    Console.WriteLine("Registration successful! You are now the current user.");
-                    return newUser;
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter a valid option (1, 2, or 3).");
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("Invalid age. Registration failed.");
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
             }
 
         }
-        private static bool ValidateUser(Person user, string password)
-        {
-            if (user.Password == password)
-            {
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Incorrect password. Please try again.");
-                return false;
-            }
-        }
+
+
+
+
+
+
+        ///// <summary>
+        ///// Validates the provided user's password.
+        ///// </summary>
+        ///// <param name="user">The Person object representing the user.</param>
+        ///// <param name="password">The password to validate against the user's stored password.</param>
+        ///// <returns>
+        /////   <c>true</c> if the provided password matches the user's stored password; otherwise, <c>false</c>.
+        ///// </returns>
+        //private static bool ValidateUser(Person user, string password)
+        //{
+        //    if (user.Password == password)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Incorrect password. Please try again.");
+        //        return false;
+        //    }
+        //}
+
+
+
+
+
+        /// <summary>
+        /// Creates a new Person object with the specified information.
+        /// </summary>
+        /// <param name="name">The name of the person.</param>
+        /// <param name="age">The age of the person.</param>
+        /// <param name="username">The username for the person.</param>
+        /// <param name="password">The password for the person.</param>
+        /// <returns>A new Person object initialized with the provided information.</returns>
         private static Person CreateUser(string name, int age, string username, string password)
         {
             return new Person { PersonName = name, PersonAge = age, Username = username, Password = password };
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Logs in a user based on provided username and password.
+        /// </summary>
+        /// <param name="dbContext">The FitnessDbContext used for database operations.</param>
+        /// <returns>
+        /// A Person object representing the logged-in user if successful; otherwise, returns null.
+        /// </returns>
+        private static Person? Login(FitnessDbContext dbContext)
+        {
+            Console.Write("Enter your username: ");
+            string? username = Console.ReadLine();
+
+            Console.Write("Enter your password: ");
+            string? password = Console.ReadLine();
+
+            Person? user = dbContext.Persons.FirstOrDefault(u => u.Username == username && u.Password == password);
+
+            return user;
+        }
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// Registers a new user with the provided information.
+        /// </summary>
+        /// <param name="dbContext">The FitnessDbContext used for database operations.</param>
+        /// <returns>
+        /// A Person object representing the registered user if successful; otherwise, returns null.
+        /// </returns>
+        private static Person? Register(FitnessDbContext dbContext)
+        {
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine() ?? "";
+
+            Console.Write("Enter your age: ");
+            if (int.TryParse(Console.ReadLine(), out int age) && age >= 0)
+            {
+                Console.Write("Enter your new username: ");
+                string newUsername = Console.ReadLine() ?? "";
+
+                Console.Write("Enter your password: ");
+                string newPassword = Console.ReadLine() ?? "";
+
+                Person newUser = CreateUser(name, age, newUsername, newPassword);
+                dbContext.Persons.Add(newUser);
+                dbContext.SaveChanges();
+
+                return newUser;
+            }
+            else
+            {
+                Console.WriteLine("Invalid age. Registration failed.");
+                return null;
+            }
+        }
+
+
         #endregion
+
+
+
 
 
     }
 }
-
+#endregion

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace HealthAndFitnessTracker.Interfaces
 {
-    public interface IHealthTracker
+    public interface IPersonId
     {
-
-
-
+        int PersonId { get; set; }
     }
 }

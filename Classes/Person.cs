@@ -22,9 +22,6 @@ namespace HealthAndFitnessTracker.Classes
         public List<FoodLog> FoodLogs { get; set; } = new List<FoodLog>();
         public List<Workout> Workouts { get; set; } = new List<Workout>();
         #endregion
-        #region Dictionary
-        public static Dictionary<Person, (List<BodyMeasurements>, List<FoodLog>, List<Workout>)> PersonDictionary { get; set; } = new();
-        #endregion
         #region Constructors
 
         // The Person class handles data related to a person, including body measurements, food logs, and workouts.
@@ -35,7 +32,7 @@ namespace HealthAndFitnessTracker.Classes
             BodyMeasurements = new List<BodyMeasurements>();
             FoodLogs = new List<FoodLog>();
             Workouts = new List<Workout>();
-            PersonDictionary[this] = (BodyMeasurements, FoodLogs, Workouts);
+            
         }
         public Person(string name, int age, string username, string password)
         {
@@ -46,7 +43,7 @@ namespace HealthAndFitnessTracker.Classes
             BodyMeasurements = new List<BodyMeasurements>();
             FoodLogs = new List<FoodLog>();
             Workouts = new List<Workout>();
-            PersonDictionary[this] = (BodyMeasurements, FoodLogs, Workouts);
+            
         }
         public Person(string name, int age, string username, string password, BodyMeasurements bodyMeasurement, FoodLog foodLog, Workout workout)
         {
@@ -59,7 +56,7 @@ namespace HealthAndFitnessTracker.Classes
             BodyMeasurements = new List<BodyMeasurements> { bodyMeasurement };
             FoodLogs = new List<FoodLog> { foodLog };
             Workouts = new List<Workout> { workout };
-            PersonDictionary[this] = (BodyMeasurements, FoodLogs, Workouts);
+            
         }
         #endregion
         #region Functions
@@ -297,34 +294,44 @@ namespace HealthAndFitnessTracker.Classes
         public Workout AddWorkoutEntry()
         {
             Console.WriteLine("\n--------Workout details----------");
-
-            string? P_workoutdate = null;
             DateTime workoutdate;
 
-            while (string.IsNullOrEmpty(P_workoutdate) || !DateTime.TryParse(P_workoutdate, out workoutdate))
+            try
             {
-                Console.Write("Please enter the workout date: ");
-                P_workoutdate = Console.ReadLine();
+                while (!DateTime.TryParse(Console.ReadLine(), out workoutdate))
+                {
+                    Console.WriteLine("Please enter a valid date for the workout (yyyy-mm-dd): ");
+                }
+
+                // Gather other parameters from the user
+                Console.Write("Please enter the workout type (ex. Running, Weightlifting or Powerlifting) : ");
+                string workoutType = Console.ReadLine() ?? "";
+
+                Console.Write("Please enter the workout start time (hh:mm): ");
+                TimeOnly workoutstart = TimeOnly.Parse(Console.ReadLine() ?? "");
+
+                Console.Write("Please enter the workout finish time (hh:mm): ");
+                TimeOnly workoutfinished = TimeOnly.Parse(Console.ReadLine() ?? "");
+
+                Console.Write("Please enter the calories burned (ex. ##.##): ");
+                double caloriesBurned;
+                while (!double.TryParse(Console.ReadLine(), out caloriesBurned))
+                {
+                    Console.WriteLine("Please enter a valid number for calories burned:");
+                }
+
+                Logger.LogInfo("Workout entry added successfully.");
+                return new Workout(workoutdate, workoutType, workoutstart, workoutfinished, caloriesBurned, PersonId);
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogError($"Error adding workout entry: {ex.Message}");
+                Console.WriteLine("Error adding workout entry. Please try again.");
+                return new Workout();
             }
 
-            // Gather other parameters from the user
-            Console.Write("Please enter the workout type: ");
-            string workoutType = Console.ReadLine() ?? "";
-
-            Console.Write("Please enter the workout start time (hh:mm): ");
-            TimeOnly workoutstart = TimeOnly.Parse(Console.ReadLine() ?? "");
-
-            Console.Write("Please enter the workout finish time (hh:mm): ");
-            TimeOnly workoutfinished = TimeOnly.Parse(Console.ReadLine() ?? "");
-
-            Console.Write("Please enter the calories burned: ");
-            double caloriesBurned;
-            while (!double.TryParse(Console.ReadLine(), out caloriesBurned))
-            {
-                Console.WriteLine("Please enter a valid number for calories burned:");
-            }
-
-            return new Workout(workoutdate, workoutType, workoutstart, workoutfinished, caloriesBurned, PersonId);
+            
         }
 
 
@@ -339,30 +346,37 @@ namespace HealthAndFitnessTracker.Classes
         {
             Console.WriteLine("\n--------Food Log details----------");
 
-            string? P_foodlogDate = null;
             DateTime foodlogDate;
-
-            while (string.IsNullOrEmpty(P_foodlogDate) || !DateTime.TryParse(P_foodlogDate, out foodlogDate))
+            try
             {
-                Console.Write("Please enter the food log date: ");
-                P_foodlogDate = Console.ReadLine();
+                while (!DateTime.TryParse(Console.ReadLine(), out foodlogDate))
+                {
+                    Console.Write("Please enter a valid date for the food log (yyyy-mm-dd): ");
+                }
+
+                Console.Write("Please enter the meal type (ex. Breakfast, Lunch, Dinner, Snacks...): ");
+                string P_mealType = Console.ReadLine() ?? "";
+
+                Console.Write("Please enter the food item (ex. Eggs, Turkey, Yogurt...): ");
+                string P_foodItem = Console.ReadLine() ?? "";
+
+                double P_foodCalories;
+                Console.Write("Please enter the food calories (ex. ##.##): ");
+                while (!double.TryParse(Console.ReadLine(), out P_foodCalories))
+                {
+                    Console.WriteLine("Please enter a valid number for food calories:");
+                }
+
+                Logger.LogInfo("Food log entry added successfully.");
+                return new FoodLog(foodlogDate, P_mealType, P_foodItem, P_foodCalories, PersonId);
             }
-
-            Console.Write("Please enter the meal type: ");
-            string? P_mealType = Console.ReadLine() ?? "";
-
-            Console.Write("Please enter the food item: ");
-            string? P_foodItem = Console.ReadLine() ?? "";
-
-            Console.Write("Please enter the food calories: ");
-            double P_foodCalories;
-            while (!double.TryParse(Console.ReadLine(), out P_foodCalories))
+            catch (Exception ex)
             {
-                Console.WriteLine("Please enter a valid number for food calories:");
+                Logger.LogError($"Error adding food log entry: {ex.Message}");
+                return new FoodLog();
             }
-
-            return new FoodLog(foodlogDate, P_mealType, P_foodItem, P_foodCalories, PersonId);
         }
+
 
 
 
@@ -377,38 +391,70 @@ namespace HealthAndFitnessTracker.Classes
         {
             Console.WriteLine("\n--------Body Measurement details----------");
 
-            string? P_bodymeasurementDate = null;
             DateTime bodymeasurementDate;
-
-            while (string.IsNullOrEmpty(P_bodymeasurementDate) || !DateTime.TryParse(P_bodymeasurementDate, out bodymeasurementDate))
+            try
             {
-                Console.Write("Please enter the body measurement date: ");
-                P_bodymeasurementDate = Console.ReadLine();
-            }
+                while (!DateTime.TryParse(Console.ReadLine(), out bodymeasurementDate))
+                {
+                    Console.Write("Please enter a valid date for the body measurement (yyyy-mm-dd): ");
+                }
 
-            Console.Write("Please enter the weight: ");
-            double weight;
-            while (!double.TryParse(Console.ReadLine(), out weight))
+                Console.Write("Please enter the weight (in lbs): ");
+                double weight;
+                while (!double.TryParse(Console.ReadLine(), out weight))
+                {
+                    Console.WriteLine("Please enter a valid number for weight:");
+                }
+
+                Console.Write("Please enter the height (in feet.inches, e.g., 5.11 for 5 feet 11 inches): ");
+                double heightFeet;
+                double heightInches;
+
+                while (true)
+                {
+                    Console.Write("Feet: ");
+                    if (double.TryParse(Console.ReadLine(), out heightFeet) && heightFeet >= 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number for feet.");
+                    }
+                }
+
+                while (true)
+                {
+                    Console.Write("Inches: ");
+                    if (double.TryParse(Console.ReadLine(), out heightInches) && heightInches >= 0 && heightInches < 12)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number for inches (0-11).");
+                    }
+                }
+
+                double height = (heightFeet * 12) + heightInches;
+
+                Console.Write("Please enter the body fat percentage: ");
+                double bodyfatPercentage;
+                while (!double.TryParse(Console.ReadLine(), out bodyfatPercentage))
+                {
+                    Console.WriteLine("Please enter a valid number for body fat percentage:");
+                }
+
+                Logger.LogInfo("Body measurement entry added successfully.");
+                return new BodyMeasurements(bodymeasurementDate, weight, height, bodyfatPercentage, PersonId);
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine("Please enter a valid number for weight:");
+                Logger.LogError($"Error adding body measurement entry: {ex.Message}");
+                return new BodyMeasurements();
             }
-
-            Console.Write("Please enter the height: ");
-            double height;
-            while (!double.TryParse(Console.ReadLine(), out height))
-            {
-                Console.WriteLine("Please enter a valid number for height:");
-            }
-
-            Console.Write("Please enter the body fat percentage: ");
-            double bodyfatPercentage;
-            while (!double.TryParse(Console.ReadLine(), out bodyfatPercentage))
-            {
-                Console.WriteLine("Please enter a valid number for body fat percentage:");
-            }
-
-            return new BodyMeasurements(bodymeasurementDate, weight, height, bodyfatPercentage, PersonId);
         }
+
 
 
 
@@ -854,7 +900,9 @@ namespace HealthAndFitnessTracker.Classes
 
 
 
-
+        /// <summary>
+        /// Displays the list of body measurements for the current user.
+        /// </summary>
         private void DisplayBodyMeasurements()
         {
             Console.WriteLine("\nExisting Body Measurements");
@@ -952,6 +1000,16 @@ namespace HealthAndFitnessTracker.Classes
 
 
 
+
+
+        // The ViewAllUserInfo method is responsible for displaying detailed information
+        // about all users, adhering to SRP by encapsulating this specific reporting functionality.
+
+        // Dependency Inversion Principle (DIP) Comment:
+        // The FitnessDbContext dependency is injected into the ViewAllUserInfo method,
+        // promoting DIP by allowing the method to work with any context that adheres to the
+        // FitnessDbContext abstraction, enhancing flexibility.
+
         /// <summary>
         /// Displays detailed information about all users, including their body measurements, food logs, and workouts.
         /// </summary>
@@ -988,8 +1046,6 @@ namespace HealthAndFitnessTracker.Classes
         }
 
         #endregion
-
-
     }
 }
 #endregion

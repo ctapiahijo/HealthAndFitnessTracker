@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using HealthAndFitnessTracker.Interfaces;
 
 #region FoodLogClass
 namespace HealthAndFitnessTracker.Classes
 {
-    public class FoodLog
+    public class FoodLog : IPersonId
     {
         #region Properties
         [Key]

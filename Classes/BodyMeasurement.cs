@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using HealthAndFitnessTracker.Interfaces;
 #region BodyMeasurementsClass
+
 namespace HealthAndFitnessTracker.Classes
 {
-    public class BodyMeasurements
+    public class BodyMeasurements : IPersonId
     {
         #region Properties
         [Key]
