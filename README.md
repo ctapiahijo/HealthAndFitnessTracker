@@ -36,6 +36,9 @@ Required Features:
 How to Use
 
 NET SDK - Ensure you have the .NET SDK installed to build and run the application.
+(Be aware that the database will have mock data already within) 
+
+
 
 Log In:
 
@@ -62,6 +65,55 @@ Option 5 allows you to log out securely.
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Database Diagram
+
+Persons Table:
++-------------+--------------+
+| Column      | Type         |
++-------------+--------------+
+| PersonId    | int          |
+| PersonName  | varchar      |
+| PersonAge   | int          |
+
+
+
+BodyMeasurements Table:
++---------------------+--------------+
+| Column              | Type         |
++---------------------+--------------+
+| BodyMeasurementId   | int          |
+| PersonId            | int          |
+| BodymeasurementDate | datetime     |
+| Weight              | double       |
+| BodyfatPercentage   | double       |
+
+
+
+FoodLogs Table:
++-------------+--------------+
+| Column      | Type         |
++-------------+--------------+
+| FoodLogId   | int          |
+| PersonId    | int          |
+| FoodlogDate | datetime     |
+| MealType    | varchar      |
+| FoodCalories| double       |
+
+
+
+Workouts Table:
++---------------+--------------+
+| Column        | Type         |
++---------------+--------------+
+| WorkoutId     | int          |
+| PersonId      | int          |
+| WorkoutDate   | datetime     |
+| WorkoutType   | varchar      |
+| WorkoutStart  | time         |
+| CaloriesBurned| double       |
+
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Technologies Used
 C#
 Entity Framework Core for database interactions
