@@ -34,10 +34,6 @@ How to Use
 
 NET SDK - Ensure you have the .NET SDK installed to build and run the application.
 
-
-
-Log out securely, ensuring user privacy.
-
 Log In:
 
 When prompted, log in using your credentials. If you don't have an account, follow the on-screen instructions to create one.
