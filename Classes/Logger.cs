@@ -1,5 +1,5 @@
 ﻿
-#region Error_Logger
+#region Error_Logger_Class
 
 namespace HealthAndFitnessTracker.Classes
 {
