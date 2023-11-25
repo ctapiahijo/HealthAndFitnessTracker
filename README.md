@@ -11,12 +11,15 @@ Key Features
 1. Workout Tracking:
 Log details of each workout, including type, date, duration, and calories burned.
 Calculate and display total calories burned and average workout time.
+
 2. Food Log:
 Record food intake, specifying meal types and associated calories.
 Provide insights into total calories consumed and distribution among different food items.
+
 3. Body Measurements:
 Track body measurements, including weight, height, and body fat percentage.
 Support updates and deletions for accurate and up-to-date information.
+
 4. User Management:
 Secure user authentication and logout functionality.
 View detailed information about all users, adhering to the Dependency Inversion Principle.
@@ -40,6 +43,7 @@ When prompted, log in using your credentials. If you don't have an account, foll
 Main Menu:
 
 Navigate through the main menu options using the provided numeric choices.
+
 Track Workouts:
 
 Choose option 1 to log and manage your workouts. Follow the prompts to add, update, or delete workout entries.
