@@ -1,8 +1,9 @@
 # HealthAndFitnessTracker
 
 Fitness Tracker Console App
+
 Overview
-The Fitness Tracker Console App is a robust health management system designed to help users monitor and maintain their fitness journey. 
+The Fitness Tracker Console App is a health management system designed to help users monitor and maintain their fitness journey. 
 The application allows users to log and track their workouts, food consumption, and body measurements. With a user-friendly console interface, 
 individuals can easily input and manage their health-related data, enabling them to make informed decisions about their fitness and nutrition.
 
@@ -19,7 +20,6 @@ Support updates and deletions for accurate and up-to-date information.
 4. User Management:
 Secure user authentication and logout functionality.
 View detailed information about all users, adhering to the Dependency Inversion Principle.
-How to Use
 
 Required Features:
 
@@ -29,20 +29,39 @@ Required Features:
 4.Add comments to your code explaining how you are using at least 2 of the solid principles. (Person class: Line 1053) && (HealthTracker: Line 137)
 
 
-1. Log In:
 
-Users can log in with their credentials to access and manage their fitness data.
-Track Workouts:
+How to Use
 
-Add, update, or delete workout entries, including details about the type, date, and duration.
-Log Food Intake:
+NET SDK - Ensure you have the .NET SDK installed to build and run the application.
 
-Record food logs with details such as meal type, food item, and calories.
-Monitor Body Measurements:
 
-Keep track of body measurements like weight, height, and body fat percentage.
 
 Log out securely, ensuring user privacy.
+
+Log In:
+
+When prompted, log in using your credentials. If you don't have an account, follow the on-screen instructions to create one.
+Main Menu:
+
+Navigate through the main menu options using the provided numeric choices.
+Track Workouts:
+
+Choose option 1 to log and manage your workouts. Follow the prompts to add, update, or delete workout entries.
+Log Food Intake:
+
+Choose option 2 to record your food logs. Input meal details, food items, and calories as prompted.
+Monitor Body Measurements:
+
+Select option 3 to track your body measurements. Input weight, height, and body fat percentage when prompted.
+View Entries:
+
+Use option 4 to view your workouts, food logs, and body measurements. Follow on-screen instructions to navigate through the entries.
+Log Out:
+
+Option 5 allows you to log out securely.
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Technologies Used
 C#
 Entity Framework Core for database interactions
@@ -52,3 +71,5 @@ The project follows a structured architecture, promoting modularity and adherenc
 
 Future Enhancements
 Graphical User Interface (GUI): Expand the application by incorporating a graphical interface for a more user-friendly experience.
+
+If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. We welcome contributions from the community!
