@@ -31,13 +31,16 @@ Required Features:
 3.Implement a log that records errors, invalid inputs, or other important events and writes them to a text file. (Logger class is in charge of creating logs to a text file)
 4.Add comments to your code explaining how you are using at least 2 of the solid principles. (Person class: Line 1053) && (HealthTracker: Line 137)
 
-
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 How to Use
 
 NET SDK - Ensure you have the .NET SDK installed to build and run the application.
 (Be aware that the database will have mock data already within) 
 
+Files:
+The "Fitness.db" will be created when the app is ran.
+The "log.txt" will be created when the user, logs in, logs out, creates records, updates records or deletes records. 
 
 
 Log In:
