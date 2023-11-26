@@ -74,7 +74,7 @@ Persons Table:
 +-------------+--------------+
 | Column      | Type         |
 +-------------+--------------+
-| PersonId    | int          |
+| PersonId    | int (PK)     |
 | PersonName  | varchar      |
 | PersonAge   | int          |
 
@@ -85,7 +85,7 @@ BodyMeasurements Table:
 | Column              | Type         |
 +---------------------+--------------+
 | BodyMeasurementId   | int          |
-| PersonId            | int          |
+| PersonId            | int  (FK)    |
 | BodymeasurementDate | datetime     |
 | Weight              | double       |
 | BodyfatPercentage   | double       |
@@ -97,7 +97,7 @@ FoodLogs Table:
 | Column      | Type         |
 +-------------+--------------+
 | FoodLogId   | int          |
-| PersonId    | int          |
+| PersonId    | int  (FK)    |
 | FoodlogDate | datetime     |
 | MealType    | varchar      |
 | FoodCalories| double       |
@@ -109,7 +109,7 @@ Workouts Table:
 | Column        | Type         |
 +---------------+--------------+
 | WorkoutId     | int          |
-| PersonId      | int          |
+| PersonId      | int  (FK)    |
 | WorkoutDate   | datetime     |
 | WorkoutType   | varchar      |
 | WorkoutStart  | time         |
