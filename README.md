@@ -42,6 +42,8 @@ Files:
 "Fitness.db" will be created when the app is run.
 "log.txt" will be generated when users log in, log out, create records, update records, or delete records.
 
+#-----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Log In:
 
 When prompted, log in using your credentials. If you don't have an account, follow the on-screen instructions to create one.
@@ -68,55 +70,6 @@ Option 5 allows you to log out securely.
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Database Diagram
-
-Persons Table:
-+-------------+--------------+
-| Column      | Type         |
-+-------------+--------------+
-| PersonId    | int (PK)     |
-| PersonName  | varchar      |
-| PersonAge   | int          |
-
-
-
-BodyMeasurements Table:
-+---------------------+--------------+
-| Column              | Type         |
-+---------------------+--------------+
-| BodyMeasurementId   | int          |
-| PersonId            | int  (FK)    |
-| BodymeasurementDate | datetime     |
-| Weight              | double       |
-| BodyfatPercentage   | double       |
-
-
-
-FoodLogs Table:
-+-------------+--------------+
-| Column      | Type         |
-+-------------+--------------+
-| FoodLogId   | int          |
-| PersonId    | int  (FK)    |
-| FoodlogDate | datetime     |
-| MealType    | varchar      |
-| FoodCalories| double       |
-
-
-
-Workouts Table:
-+---------------+--------------+
-| Column        | Type         |
-+---------------+--------------+
-| WorkoutId     | int          |
-| PersonId      | int  (FK)    |
-| WorkoutDate   | datetime     |
-| WorkoutType   | varchar      |
-| WorkoutStart  | time         |
-| CaloriesBurned| double       |
-
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Technologies Used
 C#
 Entity Framework Core for database interactions
