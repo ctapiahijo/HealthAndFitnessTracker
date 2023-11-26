@@ -35,17 +35,17 @@ Required Features:
 
 How to Use
 
-NET SDK - Ensure you have the .NET SDK installed to build and run the application.
-(Be aware that the database will have mock data already within) 
+.NET SDK: Ensure that you have the .NET SDK installed to build and run the application. 
+Note that the database will contain mock data by default.
 
 Files:
-The "Fitness.db" will be created when the app is ran.
-The "log.txt" will be created when the user, logs in, logs out, creates records, updates records or deletes records. 
-
+"Fitness.db" will be created when the app is run.
+"log.txt" will be generated when users log in, log out, create records, update records, or delete records.
 
 Log In:
 
 When prompted, log in using your credentials. If you don't have an account, follow the on-screen instructions to create one.
+
 Main Menu:
 
 Navigate through the main menu options using the provided numeric choices.
