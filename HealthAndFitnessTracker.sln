@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthAndFitnessTracker", "HealthAndFitnessTracker.csproj", "{6E9B4626-AF08-4A26-A7F8-0D541B333D2D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnitTest", "..\xUnitTest\xUnitTest.csproj", "{46C85290-B7DE-4565-9C1E-5B86A8F89764}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthAndFitnessTracker", "HealthAndFitnessTracker\HealthAndFitnessTracker.csproj", "{6E9B4626-AF08-4A26-A7F8-0D541B333D2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
