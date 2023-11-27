@@ -106,26 +106,17 @@ namespace HealthAndFitnessTracker.Classes
         /// <returns>The most common workout type as a string. If no workouts are recorded, it returns "No workouts recorded."</returns>
         public string MostCommonWorkoutType()
         {
-            Dictionary<string, int> workoutTypeCounts = new();
-
-            foreach (var workout in Workouts)
-            {
-                if (workoutTypeCounts.ContainsKey(workout.WorkoutType))
-                {
-                    workoutTypeCounts[workout.WorkoutType]++;
-                }
-                else
-                {
-                    workoutTypeCounts[workout.WorkoutType] = 1;
-                }
-            }
-
-            if (workoutTypeCounts.Count == 0)
+            if (Workouts.Count == 0)
             {
                 return "No workouts recorded";
             }
 
-            var mostCommonType = workoutTypeCounts.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            var mostCommonType = Workouts
+                .GroupBy(workout => workout.WorkoutType)
+                .OrderByDescending(group => group.Count())
+                .First()
+                .Key;
+
             return mostCommonType;
         }
 
@@ -166,23 +157,17 @@ namespace HealthAndFitnessTracker.Classes
         /// Calculates the distribution of calories among different food items in the food logs.
         /// </summary>
         /// <returns>A dictionary where keys are food items and values are the total calories consumed for each food item.</returns>
-        public Dictionary<string, double> CaloricDistribution()
+        public List<(string FoodItem, double TotalCalories)> CaloricDistribution()
         {
-            Dictionary<string, double> distribution = new();
-
-            foreach (var log in FoodLogs)
+            if (FoodLogs.Count == 0)
             {
-                string foodItem = log.FoodItem;
-
-                if (distribution.ContainsKey(foodItem))
-                {
-                    distribution[foodItem] += log.FoodCalories;
-                }
-                else
-                {
-                    distribution[foodItem] = log.FoodCalories;
-                }
+                return new List<(string, double)>();
             }
+
+            var distribution = FoodLogs
+                .GroupBy(log => log.FoodItem)
+                .Select(group => (FoodItem: group.Key, TotalCalories: group.Sum(log => log.FoodCalories)))
+                .ToList();
 
             return distribution;
         }
