@@ -35,11 +35,12 @@ Required Features:
 
 How to Use
 
-.NET SDK: Ensure that you have the .NET SDK installed to build and run the application. 
-Note that the database will contain mock data by default.
+1..NET SDK: Ensure that you have the .NET SDK installed to build.
+2.Use cmd or git bash to run "dotnet ef migrations add Initial" and "dotnet ef database update" in the subfolder dir (\..HealthAndFitnessTracker\HealthAndFitnessTracker).
+This will create the "Fitness.db" in your desktop.
+
 
 Files:
-"Fitness.db" will be created when the app is run.
 "log.txt" will be generated when users log in, log out, create records, update records, or delete records.
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Use option 4 to view your workouts, food logs, and body measurements. Follow on-
 Log Out:
 
 Option 5 allows you to log out securely.
+
+Note: The database will contain mock data by default.
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
