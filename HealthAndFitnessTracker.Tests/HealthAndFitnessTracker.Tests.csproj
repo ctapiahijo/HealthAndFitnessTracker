@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HealthAndFitnessTracker.csproj" />
+    <ProjectReference Include="..\HealthAndFitnessTracker\HealthAndFitnessTracker.csproj" />
   </ItemGroup>
+
+  
 
 </Project>
