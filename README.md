@@ -38,7 +38,7 @@ How to Use
 1..NET SDK: Ensure that you have the .NET SDK installed to build.
 2.Use cmd or git bash to run "dotnet ef migrations add Initial" and "dotnet ef database update" in the subfolder dir (\..HealthAndFitnessTracker\HealthAndFitnessTracker).
 This will create the "Fitness.db" in your desktop.
-
+3. Make sure HealthAndFitnessTracker is the main project and not HealthAndFitnessTracker.Test.
 
 Files:
 "log.txt" will be generated when users log in, log out, create records, update records, or delete records.
